@@ -1,0 +1,533 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>XMLCommunicator</name>
+  </assembly>
+  <members>
+    <member name="T:MD5alt.MD5InitializerConstant">
+      <summary>
+            constants for md5
+            </summary>
+    </member>
+    <member name="T:MD5alt.Digest">
+      <summary>
+            Represent digest with ABCD
+            </summary>
+    </member>
+    <member name="T:MD5alt.MD5Helper">
+      <summary>
+            helper class providing suporting function
+            </summary>
+    </member>
+    <member name="M:MD5alt.MD5Helper.RotateLeft(System.UInt32,System.UInt16)">
+      <summary>
+            Left rotates the input word
+            </summary>
+      <param name="uiNumber">a value to be rotated</param>
+      <param name="shift">no of bits to be rotated</param>
+      <returns>the rotated value</returns>
+    </member>
+    <member name="M:MD5alt.MD5Helper.ReverseByte(System.UInt32)">
+      <summary>
+            perform a ByteReversal on a number
+            </summary>
+      <param name="uiNumber">value to be reversed</param>
+      <returns>reversed value</returns>
+    </member>
+    <member name="T:MD5alt.MD5ChangingEventArgs">
+      <summary>
+            class for changing event args
+            </summary>
+    </member>
+    <member name="T:MD5alt.MD5ChangedEventArgs">
+      <summary>
+            class for cahnged event args
+            </summary>
+    </member>
+    <member name="T:MD5alt.MD5">
+      <summary>
+            Summary description for MD5.
+            </summary>
+    </member>
+    <member name="F:MD5alt.MD5.T">
+      <summary>
+            lookup table 4294967296*sin(i)
+            </summary>
+    </member>
+    <member name="F:MD5alt.MD5.X">
+      <summary>
+            X used to proces data in 
+            512 bits chunks as 16 32 bit word
+            </summary>
+    </member>
+    <member name="F:MD5alt.MD5.dgFingerPrint">
+      <summary>
+            the finger print obtained. 
+            </summary>
+    </member>
+    <member name="F:MD5alt.MD5.m_byteInput">
+      <summary>
+            the input bytes
+            </summary>
+    </member>
+    <member name="M:MD5alt.MD5.#ctor">
+      <summary>
+            Constructor
+            </summary>
+    </member>
+    <member name="M:MD5alt.MD5.CalculateMD5Value">
+      <summary>
+            calculat md5 signature of the string in Input
+            </summary>
+      <returns> Digest: the finger print of msg</returns>
+    </member>
+    <!-- Badly formed XML comment ignored for member "M:MD5alt.MD5.TransF(System.UInt32@,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt16,System.UInt32)" -->
+    <!-- Badly formed XML comment ignored for member "M:MD5alt.MD5.TransG(System.UInt32@,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt16,System.UInt32)" -->
+    <member name="M:MD5alt.MD5.TransH(System.UInt32@,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt16,System.UInt32)">
+      <summary>
+            perform transformatio using h(b^c^d)
+            </summary>
+    </member>
+    <member name="M:MD5alt.MD5.TransI(System.UInt32@,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt16,System.UInt32)">
+      <summary>
+            perform transformatio using i (c^(b|~d))
+            </summary>
+    </member>
+    <member name="M:MD5alt.MD5.PerformTransformation(System.UInt32@,System.UInt32@,System.UInt32@,System.UInt32@)">
+      <summary>
+            Perform All the transformation on the data
+            </summary>
+      <param name="A">A</param>
+      <param name="B">B </param>
+      <param name="C">C</param>
+      <param name="D">D</param>
+    </member>
+    <member name="M:MD5alt.MD5.CreatePaddedBuffer">
+      <summary>
+            Create Padded buffer for processing , buffer is padded with 0 along 
+            with the size in the end
+            </summary>
+      <returns>the padded buffer as byte array</returns>
+    </member>
+    <member name="M:MD5alt.MD5.CopyBlock(System.Byte[],System.UInt32)">
+      <summary>
+            Copies a 512 bit block into X as 16 32 bit words
+            </summary>
+      <param name="bMsg"> source buffer</param>
+      <param name="block">no of block to copy starting from 0</param>
+    </member>
+    <member name="P:MD5alt.MD5.Value">
+      <summary>
+            gets or sets as string
+             </summary>
+    </member>
+    <member name="P:MD5alt.MD5.ValueAsByte">
+      <summary>
+            get/sets as  byte array 
+            </summary>
+    </member>
+    <member name="T:XMLCommunicator.LoadStruct">
+      <summary>
+            Struct for loads (Lights/Shades)
+            </summary>
+    </member>
+    <member name="T:XMLCommunicator.RoomOptionStruct">
+      <summary>
+            Struct for Room Options
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.RoomOptionStruct.Size">
+      <summary>
+            Get the size of the Room Option Array
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.RoomOptionStruct.Name">
+      <summary>
+            Store the names of the individual room options
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.RoomOptionStruct.Icon">
+      <summary>
+            Store the icons of the individual room options
+            </summary>
+    </member>
+    <member name="T:XMLCommunicator.RoomStruct">
+      <summary>
+            Struct for rooms
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.ResetActiveSrc(System.UInt16)">
+      <summary>
+             Discretly set active source with triggering source change event,
+             used on reboot to sync up system
+             </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomOptionTrigger(System.Object,XMLCommunicator.XMLCOMGENERICEVENT_Args)">
+      <summary>
+            Sends Event to listeners attatched to EventRoomOptionTrigger
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomOptionUpdate(System.Object,XMLCommunicator.XMLCOMGENERICEVENT_Args)">
+      <summary>
+            Sends Event to listeners attatched to EventRoomOptionUpdate
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolRaiseStart">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolRaiseStart
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolRaiseEnd">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolRaiseEnd
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolLowerStart">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolLowerStart
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolLowerEnd">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolLowerEnd
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolMute">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolMute
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolChange">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolChange
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomVolSet(System.UInt16)">
+      <summary>
+            Sends Event to listeners attatched to EventRoomVolSet
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomMuteChange">
+      <summary>
+            Sends Event to listeners attatched to EventRoomMuteChange
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomSrcChange(System.Object)">
+      <summary>
+            Sends Event to listeners attatched to EventRoomSrcChange
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.RoomStruct.FireRoomNameChange">
+      <summary>
+            Sends Event to listeners attatched to EventRoomNameChange
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.RoomStruct.ActiveSRC">
+      <summary>
+            Set/Get the Active Source
+            (Expects Source ID of new source)
+            Get: Triggers FireRoomSrcChange Event
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomOptionTrigger">
+      <summary>
+            Event to allow listeners to attatch to EventRoomOptionTrigger
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomOptionUpdate">
+      <summary>
+            Event to allow listeners to attatch to EventRoomOptionTrigger
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolRaiseStart">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolRaiseStart
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolRaiseEnd">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolRaiseEnd
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolLowerStart">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolLowerStart
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolLowerEnd">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolLowerEnd
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolMute">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolMute
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolChange">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolChange
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomVolSet">
+      <summary>
+            Event to allow listeners to attatch to EventRoomVolSet
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomMuteChange">
+      <summary>
+            Event to allow listeners to attatch to EventRoomMuteChange
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomSrcChange">
+      <summary>
+            Event to allow listeners to attatch to EventRoomSrcChange
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.RoomStruct.EventRoomNameChange">
+      <summary>
+            Event to allow listeners to attatch to EventRoomNameChange
+            </summary>
+    </member>
+    <member name="T:XMLCommunicator.ProfileStruct">
+      <summary>
+            Struct for profiles
+            </summary>
+    </member>
+    <member name="T:XMLCommunicator.ComEventArgs">
+      <summary>
+            Event Arguments for communication events
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.ComEventArgs.#ctor(System.UInt16)">
+      <summary>
+            Construct ComEventArgs
+            </summary>
+      <param name="_getValue">Value of what information is being requested (Usually an ID)</param>
+    </member>
+    <member name="M:XMLCommunicator.ComEventArgs.#ctor(System.UInt16,System.Int32)">
+      <summary>
+            Construct ComEventArgs
+            </summary>
+      <param name="_getValue">Value of what information is being requested (Usually an ID)</param>
+      <param name="_getListType">Value representing the type of list to get info for</param>
+    </member>
+    <member name="T:XMLCommunicator.Communicator">
+      <summary>
+            Constructor
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.#ctor">
+      <summary>
+            Constructor
+            </summary>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.DeviceEventsRegistered(System.EventHandler{System.EventArgs})">
+      <summary>
+            Detect whether the specified eventhandler has been registered as a listener to RoomDataChange
+            </summary>
+      <seealso cref="E:XMLCommunicator.Communicator.RoomDataChange" />
+      <returns>True if device events have been registered/False if not</returns>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.ComGetTpProfile(System.UInt16)">
+      <summary>
+            Sends Event to listeners attatched to EventGetTpProfile
+            (If XML Config is present it will listen for a touchpanel ID and return the current running profile)
+            </summary>
+      <param name="_tpId">ID of the touchpanel to get the current running profile on</param>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.ComGetListRequest(System.UInt16,System.Int32,System.Double)">
+      <summary>
+            Sends Event to listeners attatched to EventComGetListRequest
+            (Attatch listener to EventComGetListResponse BEFORE you trigger this to get response and process info)
+            </summary>
+      <param name="_touchpanelId">Id for touchpanel to use for lookup</param>
+      <param name="_listType">
+            1=LightsAreas
+            2=LightLoads
+            3=ShadesAreas
+            4=ShadesLoads
+            </param>
+      <param name="_timestamp">unix timestamp of request</param>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.ComGetListResponse(System.UInt16,System.Int32,System.Double,System.UInt16[])">
+      <summary>
+            Sends Event to listeners attatched to ComGetListResponse
+            (Receives response from EventComGetListRequest)
+            </summary>
+      <param name="_touchpanelId">ID for touchpanel used for lookup</param>
+      <param name="_listType">
+            1=LightsAreas
+            2=LightLoads
+            3=ShadesAreas
+            4=ShadesLoads
+            </param>
+      <param name="_timestamp">unix timestamp of request</param>
+      <param name="_roomList">list of room IDs</param>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.ComGetList(System.UInt16,System.Int32)">
+      <summary>
+            Sends Event to listeners attatched to EventGetList
+            (If XML Config is present it will listen for a profile ID and list type and return an array of ids in that profile's list)
+            </summary>
+      <param name="_profileId">Id for profile to use for lookup</param>
+      <param name="_listType">
+            1=LightsAreas
+            2=LightLoads
+            3=ShadesAreas
+            4=ShadesLoads
+            </param>
+      <returns>Array of IDs in that profile's list</returns>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.FireProfileDataChange(System.EventArgs)">
+      <summary>
+            Sends Event to listeners attatched to ProfileDataChange
+            Triggered when ProfileList data is changed
+            </summary>
+      <param name="_ea">Usually null</param>
+    </member>
+    <member name="M:XMLCommunicator.Communicator.FireLightsDataChangeComplete(System.EventArgs)">
+      <summary>
+            Sends Event to listeners attatched to LightsDataChange
+            Triggered when LightsLoads data is changed
+            </summary>
+      <param name="_ea">Usually null</param>
+      <seealso cref="P:XMLCommunicator.Communicator.LightsLoads" />
+    </member>
+    <member name="M:XMLCommunicator.Communicator.FireShadesDataChangeComplete(System.EventArgs)">
+      <summary>
+            Sends Event to listeners attatched to ShadesDataChangeComplete
+            Triggered when ShadesLoads data is change is complete
+            </summary>
+      <param name="_ea">Usually null</param>
+      <seealso cref="P:XMLCommunicator.Communicator.ShadesLoads" />
+    </member>
+    <member name="M:XMLCommunicator.Communicator.FireXMLReload(System.EventArgs)">
+      <summary>
+            Sends Event to listeners attatched to XMLReload
+            Triggered when XMLLoad is requested
+            </summary>
+      <param name="_ea">Usually null</param>
+    </member>
+    <member name="P:XMLCommunicator.Communicator.SystemAuthorized">
+      <summary>
+            Check if System is Authorized
+            </summary>
+      <value>True if authorized/False if not</value>
+    </member>
+    <member name="P:XMLCommunicator.Communicator.XMLPresent">
+      <summary>
+            Check if XMLConfig is being used
+            </summary>
+      <value>True if in use/False if not</value>
+    </member>
+    <member name="P:XMLCommunicator.Communicator.RoomList">
+      <summary>
+            List of Rooms (Updated via XML Config)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireRoomDataChange(System.EventArgs)" />
+    </member>
+    <member name="P:XMLCommunicator.Communicator.LightsLoads">
+      <summary>
+            List of Lights (Updated via XML Config)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireLightsDataChange(System.EventArgs)" />
+    </member>
+    <member name="P:XMLCommunicator.Communicator.ShadesLoads">
+      <summary>
+            List of Shades (Updated via XML Config)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireShadesDataChange(System.EventArgs)" />
+    </member>
+    <member name="P:XMLCommunicator.Communicator.RefTypeXMLCore">
+      <summary>
+            Contain Reference to XMLConfig Type for Refelction
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.Communicator.RefObjectXMLCore">
+      <summary>
+            Contain Reference to XMLConfig Core for Refelction
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.Communicator.RefMethodGetList">
+      <summary>
+            Contain Method Name to XMLConfig Core for GetList
+            </summary>
+    </member>
+    <member name="P:XMLCommunicator.Communicator.RefMethodGetTpProfile">
+      <summary>
+            Contain Method Name to XMLConfig Core for GetTpProfile
+            </summary>
+    </member>
+    <member name="E:XMLCommunicator.Communicator.EventGetTpProfile">
+      <summary>
+            Event to allow listeners to attatch to ComGetTpProfile
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.ComGetTpProfile(System.UInt16)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.EventGetList">
+      <summary>
+            Event to allow listeners to attatch to ComGetList
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="!:Communicator.ComGetList(int,int)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.ProfileDataChange">
+      <summary>
+            Event to allow listeners to attatch to FireProfileDataChange
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireProfileDataChange(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.RoomDataChange">
+      <summary>
+            Event to allow listeners to attatch to FireRoomDataChange
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireRoomDataChange(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.SystemAuthorizedChange">
+      <summary>
+            Event to allow listeners to attatch to FireSystemAuthorizedChange
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireSystemAuthorizedChange(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.LightsDataChange">
+      <summary>
+            Event to allow listeners to attatch to FireLightsDataChange
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireLightsDataChange(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.LightsDataChangeComplete">
+      <summary>
+            Event to allow listeners to attatch to FireLightsDataChangeComplete
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireLightsDataChangeComplete(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.ShadesDataChange">
+      <summary>
+            Event to allow listeners to attatch to FireShadesDataChange
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireShadesDataChange(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.ShadesDataChangeComplete">
+      <summary>
+            Event to allow listeners to attatch to FireShadesDataChangeComplete
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireShadesDataChangeComplete(System.EventArgs)" />
+    </member>
+    <member name="E:XMLCommunicator.Communicator.XMLReload">
+      <summary>
+            Event to allow listeners to attatch to FireXMLReload
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+      <seealso cref="M:XMLCommunicator.Communicator.FireXMLReload(System.EventArgs)" />
+    </member>
+  </members>
+</doc>

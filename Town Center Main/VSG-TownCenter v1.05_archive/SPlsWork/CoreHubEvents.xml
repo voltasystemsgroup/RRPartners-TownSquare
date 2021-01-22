@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreHubEvents</name>
+    </assembly>
+    <members>
+        <member name="T:CoreHubEvents.PropertyTag">
+            <summary>
+            PropertyTag Definitions
+            </summary>
+        </member>
+        <member name="T:CoreHubEvents.CoreTag">
+            <summary>
+            CoreTag Definitions
+            </summary>
+        </member>
+        <member name="T:CoreHubEvents.SystemCore">
+            <summary>
+            SystemCore Class
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.UsingXML">
+            <summary>
+            Check using <see cref="P:XMLCommunicator.Communicator.XMLPresent">.</see>
+            to see if XML is being used
+            </summary>
+            <returns>True if XML is being used</returns>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.FireChangeDebug(System.Object)">
+            <summary>
+            Sends Event to listeners attatched to FireSendEvent
+            Triggered when SendEvent is called
+            </summary>
+            <param name="_domain">Domain of the event</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.FireSendEvent(System.Object,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Sends Event to listeners attatched to FireSendEvent
+            Triggered when SendEvent is called
+            </summary>
+            <param name="_domain">Domain of the event</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.FireHubCreation(System.String,System.Int32)">
+            <summary>
+            Sends Event to listeners attatched to EventHubCreation
+            Triggered when CoreHub is created
+            </summary>
+            <param name="_tpId">ID of the touchpanel to get the current running profile on</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.FireHubAreaCreationTimeout">
+            <summary>
+            Sends Event to listeners attatched to EventHubAreaCreationTimeout
+            Triggered when CoreHub Area is created and 10s timer completes
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.FireXMLLightCreationTimeout">
+            <summary>
+            Sends Event to listeners attatched to EventXMLLightCreationTimeout
+            Triggered when XML LightsDataChange and 10s timer completes
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.FireXMLShadeCreationTimeout">
+            <summary>
+            Sends Event to listeners attatched to EventXMLShadeCreationTimeout
+            Triggered when XML ShadesDataChange and 10s timer completes
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.RegisterEventListeners">
+            <summary>
+            Connect Event Listeners to
+            <see cref="M:CoreHubEvents.SystemCore.Communicator_RoomDataChange(System.Object,System.EventArgs)">.</see>
+            <see cref="M:CoreHubEvents.SystemCore.Communicator_LightsDataChange(System.Object,System.EventArgs)">.</see>
+            <see cref="M:CoreHubEvents.SystemCore.Communicator_ShadesDataChange(System.Object,System.EventArgs)">.</see>
+            to notify of changes to corresponding lists
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.Communicator_RoomDataChange(System.Object,System.EventArgs)">
+            <summary>
+            EventHandler for Communicator.RoomDataChange
+            Maintains the tagArea core to stay in sync with RoomList collection
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.SendEvent(System.String,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Send Event to Hub
+            </summary>
+            <param name="_domain">Core to send event to</param>
+            <param name="_lea">Event arguments</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.SendEventWithSender(System.String,CoreHubEvents.HubEventArgs,System.Object)">
+            <summary>
+            Send Event to Hub with sender
+            </summary>
+            <param name="_domain">Core to send event to</param>
+            <param name="_lea">Event arguments</param>
+            <param name="_sender">Sender of event</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.SendEventGlobal(System.String,CoreHubEvents.HubEventArgs,System.Object)">
+            <summary>
+            Send Event to Global
+            </summary>
+            <param name="_domain">Core to send event to</param>
+            <param name="_lea">Event arguments</param>
+            <param name="_sender">Sender of event</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GetAreaControllerId(System.String,System.Int32)">
+            <summary>
+            Get Key Id of AreaController
+            </summary>
+            <param name="_areaId">AreaId to search for an AreaController in</param>
+            <param name="_domain">Core to search for an AreaController in</param>
+        </member>
+        <member name="F:CoreHubEvents.SystemCore.AllCores">
+            <summary>
+            Stores all registered cores
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.RegisterCore(System.String)">
+            <summary>
+            Register a new core into AllCores
+            </summary>
+            <param name="_domain">Name of core to register</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.RemoveHub(System.String,System.Int32)">
+            <summary>
+            Remove a new hub from a core
+            </summary>
+            <param name="_domain">Core to remove hub from</param>
+            <param name="_id">ID of hub to remove from core (ID must be unique in specified core)</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.RegisterHub(System.String,System.Int32)">
+            <summary>
+            Register a new hub into a core
+            </summary>
+            <param name="_domain">Core to register hub to</param>
+            <param name="_id">ID of hub to register into core (ID must be unique in specified core)</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GetAreaSize(System.String)">
+            <summary>
+            Get number of unique PropertyTag.AreaId in given core's hubs
+            </summary>
+            <param name="_domain">Core to search in</param>
+            <returns>Amount of unique PropertyTag.AreaId in given core</returns>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GetAreaKVP(System.String)">
+            <summary>
+            Get KeyValuePair of unique PropertyTag.AreaId in given core's hubs
+            </summary>
+            <param name="_domain">Core to search in</param>
+            <returns>KeyValuePair of unique PropertyTag.AreaIds in given core</returns>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GetAreaHubCount(System.String,System.Int32)">
+            <summary>
+            Get number of hubs that share PropertyTag.AreaId in given core 
+            </summary>
+            <param name="_areaId">Area ID to search for</param>
+            <param name="_domain">Core to search in</param>
+            <returns>Amount of hubs matched</returns>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GetAreaHubIds(System.String,System.Int32)">
+            <summary>
+            Get all IDs for hubs with PropertyTag.AreaId matching give Area Id 
+            </summary>
+            <param name="_areaId">Area Id to search for</param>
+            <param name="_domain">Core to search in</param>
+            <returns>Array of IDs of hubs matching search</returns>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GlobalSubscribe(CoreHubEvents.SingleHub)">
+            <summary>
+            Subscribes every created hub to GlobalEventHandler
+            </summary>
+            <param name="_hub">hub to attatch GlobalEventHandler to</param>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.GlobalEventHandler(System.Object,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Global event listener for debugging
+            Allows any event triggered to be detected and acted upon
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SystemCore.PrintCore">
+            <summary>
+            Lists All Registered Hubs
+            </summary>
+            
+        </member>
+        <member name="E:CoreHubEvents.SystemCore._eventChangeDebug">
+            <summary>
+            Store delegates attatched to EventChangeDebug
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventChangeDebug">
+            <summary>
+            Event to allow listeners to attatch to EventChangeDebug
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+            <seealso cref="!:EventChangeDebug(ushort)"/>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore._eventSendEvent">
+            <summary>
+            Store delegates attatched to EventSendEvent
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventSendEvent">
+            <summary>
+            Event to allow listeners to attatch to EventSendEvent
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+            <seealso cref="!:EventSendEvent(ushort)"/>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore._eventHubCreation">
+            <summary>
+            Store delegates attatched to EventHubCreation
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventHubCreation">
+            <summary>
+            Event to allow listeners to attatch to EventHubCreation
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+            <seealso cref="!:EventHubCreation(ushort)"/>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore._eventHubAreaCreationTimeout">
+            <summary>
+            Store delegates attatched to EventHubAreaCreationTimeout
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventHubAreaCreationTimeout">
+            <summary>
+            Event to allow listeners to attatch to EventHubAreaCreationTimeout
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+            <seealso cref="!:EventHubAreaCreationTimeout(ushort)"/>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore._eventXMLLightCreationTimeout">
+            <summary>
+            Store delegates attatched to EventXMLLightCreationTimeout
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventXMLLightCreationTimeout">
+            <summary>
+            Event to allow listeners to attatch to EventXMLLightCreationTimeout
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+            <seealso cref="!:EventXMLLightCreationTimeout(ushort)"/>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore._eventXMLShadeCreationTimeout">
+            <summary>
+            Store delegates attatched to EventXMLShadeCreationTimeout
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventXMLShadeCreationTimeout">
+            <summary>
+            Event to allow listeners to attatch to EventXMLShadeCreationTimeout
+            (Only one attatchment request allowed per delegate other requests are ignored)
+            </summary>
+            <seealso cref="!:EventXMLShadeCreationTimeout(ushort)"/>
+        </member>
+        <member name="E:CoreHubEvents.SystemCore.EventXMLReload">
+            <summary>
+            Event to allow listeners to attatch to EventXMLReload
+            </summary>
+        </member>
+        <member name="T:CoreHubEvents.SystemCore.AreaEqualityComparer">
+            <summary>
+            Class used to get as a comparer to get all hubs with matching Propertytag.tagArea
+            </summary>
+        </member>
+        <member name="T:CoreHubEvents.EventTag">
+            <summary>
+            EventTag Definitions
+            </summary>
+        </member>
+        <member name="T:CoreHubEvents.HubEventArgs">
+            <summary>
+            EventArgument Class
+            </summary>
+        </member>
+        <member name="T:CoreHubEvents.SingleHub">
+            <summary>
+            Hub Class
+            </summary>
+        </member>
+        <member name="F:CoreHubEvents.SingleHub.Properties">
+            <summary>
+            Properties for hub
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.HasProperty(System.String)">
+            <summary>
+            Check if Property in hub exists
+            </summary>
+            <param name="_key">PropertyTag of value to store</param>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.AddProperty(System.String,System.String)">
+            <summary>
+            Add/Update Property in hub
+            (Disabled by SystemCore.UsingXML)
+            </summary>
+            <param name="_key">PropertyTag of value to store</param>
+            <param name="_value">value to store</param>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.GetProperty(System.String)">
+            <summary>
+            Get Property from hub
+            </summary>
+            <param name="_key">PropertyTag of value to get</param>
+            <returns>Property Value</returns>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.AddXmlProperty(System.String,System.String)">
+            <summary>
+            Add/Update Property in hub
+            (Used when AddProperty is disabled)
+            </summary>
+            <param name="_key">PropertyTag of value to store</param>
+            <param name="_value">value to store</param>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.FireHubChange(CoreHubEvents.HubEventArgs)">
+            <summary>
+            Sends Event to listeners attatched to SingleHubChange
+            </summary>
+            <param name="_lea">Event arguments for event</param>
+        </member>
+        <member name="M:CoreHubEvents.SingleHub.FireHubChange(CoreHubEvents.HubEventArgs,System.Object)">
+            <summary>
+            Sends Event to listeners attatched to SingleHubChange with sender
+            </summary>
+            <param name="_lea">Event arguments for event</param>
+            <param name="sender">Sender of event</param>
+        </member>
+        <member name="E:CoreHubEvents.SingleHub._singleHubChange">
+            <summary>
+            Store delegates attatched to SingleHubChange
+            </summary>
+        </member>
+        <member name="E:CoreHubEvents.SingleHub.SingleHubChange">
+            <summary>
+            Event to allow listeners to attatch to FireHubChange
+            (Only one attatchment request allowed per delegate, duplicate requests are ignored)
+            </summary>
+            <seealso cref="!:FireHubChange(ushort)"/>
+        </member>
+    </members>
+</doc>

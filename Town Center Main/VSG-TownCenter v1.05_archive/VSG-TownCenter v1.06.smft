@@ -1,0 +1,17 @@
+<Device Model="CP3">
+   <Network Type="Cresnet" Id="01"/>
+   <Network Type="Ethernet" Id="02">
+      <Device Model="TS-1542-C" DeviceId="0A" Name="tp101"/>
+      <Device Model="Crestron_App" DeviceId="0B" Name="tp001-iPad"/>
+      <Device Model="Core3 UI XPanel" DeviceId="0C" Name="tp002-Xpanel"/>
+      <Device Model="CEN-RFGW-EX" DeviceId="0F" Name="CEN-RFGW-EX (Shared Ethernet)">
+         <Network Type="RF">
+            <Device Model="HR-150,HRI-150" DeviceId="03" Name="HR-150"/>
+            <Device Model="CHV-TSTATEX" DeviceId="04" Name="Crestron CHV-TSTATEX"/>
+         </Network>
+      </Device>
+      <Device Model="DM-MD8x8" DeviceId="10"/>
+      <Device Model="DSP-1283" DeviceId="20"/>
+      <Device Model="DSP-1283" DeviceId="21" Name="DSP-1283 (2nd DSP)"/>
+   </Network>
+</Device>

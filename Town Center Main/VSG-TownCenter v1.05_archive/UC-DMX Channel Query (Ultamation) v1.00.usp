@@ -1,0 +1,178 @@
+/*******************************************************************************
+ * Ultamation UC-DMX Channel Query SIMPL+ Module
+ * Copyright (c) Ultamation Limited
+ *
+ * Ultamation Limited
+ * E: info@ultamation.com
+ * W: www.ultamation.com
+ *
+ * Module Summary:
+ * 
+ * Author:	Matt Chapman
+ * Date:	Jan 2014 
+ * Info:	For interface details, please read the embedded help file
+ *			See #HELP_BEGIN <-> #HELP_END
+ *
+ ******************************************************************************/
+
+/*******************************************************************************
+ * COMPILER DIRECTIVES
+ ******************************************************************************/
+#SYMBOL_NAME "UC-DMX Channel Query (Ultamation) v1.00"
+#HINT ""
+#DEFINE_CONSTANT		DMX_MAX		100
+#CATEGORY "4" // Device Interface
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#HELP_PDF_FILE "UC-DMX Crestron Integration Module Programming Guide.pdf" 
+//#ENABLE_TRACE
+    
+#HELP_BEGIN
+UC-DMX Channel Query (Ultamation)
+
+Copyright:
+This module is the copyright of Ultamation Ltd and
+may not be used without the an appropriate licence
+issued by Ultamation Ltd.
+
+Summary:
+
+Inputs:
+
+Outputs:
+
+Parameters:
+
+#HELP_END
+
+
+/*******************************************************************************
+ * INPUTS & OUTPUTS
+ ******************************************************************************/
+DIGITAL_INPUT _SKIP_, Query, _SKIP_;
+STRING_INPUT TCP_In[512];
+
+DIGITAL_OUTPUT _SKIP_, Complete;
+STRING_OUTPUT _SKIP_, TCP_Out;
+ANALOG_OUTPUT _SKIP_, Channel[512,1];
+
+/*******************************************************************************
+ * PARAMETERS
+ ******************************************************************************/
+INTEGER_PARAMETER Start_Channel;
+
+/*******************************************************************************
+ * PARAMETER PROPERTIES
+ ******************************************************************************/
+#BEGIN_PARAMETER_PROPERTIES Start_Channel
+	propValidUnits = unitDecimal;
+	propDefaultUnit = unitDecimal;
+	propBounds = 1d, 512d;
+	propDefaultValue = 1d;
+#END_PARAMETER_PROPERTIES
+
+/*******************************************************************************
+ * GLOBAL VARIABLES
+ ******************************************************************************/
+
+INTEGER g_iNumChannels;
+STRING g_sOutput[1024];
+INTEGER g_iBusy;
+
+/*******************************************************************************
+ * EVENT HANDLERS
+ ******************************************************************************/
+
+PUSH Query
+{
+	Integer iReplyLen;
+	Integer iPayloadLen;
+	Integer i;
+	Integer iTempChannel;
+	String sByte[2];
+	String sReceived[512];    
+
+	//If we are not already processing...
+	if(g_iBusy = 0)
+	{ 	
+		//We are now busy.
+        g_iBusy = 1;
+	
+		//Send out query string
+		MakeString(TCP_Out, "G:0000:%04X:0004:%04X", Start_Channel, g_iNumChannels);
+			
+        //set up expected reply length
+		iReplyLen = (( g_iNumChannels *2 ) + 17);
+
+		TRACE("Command sent, awaiting response. Return len should be %d", iReplyLen);
+
+        //Begin to gather any replies
+ 		sReceived = GatherByLength(iReplyLen, TCP_In, 100 );
+        
+		TRACE("sReceived Length = %d", Len(sReceived));
+
+		//if it times out, break.
+		if(Len(sReceived) <> 0)
+		{			
+			//otherwise, begin reply processing.
+			//Check start of command is feedback from unit, and start channel matches
+        	if( ( Left(sReceived, 7) = "F:0000:" ) && ( HexToI( Mid(sReceived, 8, 4) ) = Start_Channel) )
+			{
+				TRACE("Response is feedback and matches start channel");
+
+				//we only care about the payload now, so cut the rest out
+				iPayloadLen = HexToI( Mid( sReceived, 13, 4 ));
+
+				TRACE("Payload Length = %d", iPayloadLen);
+                
+				//Cut out the payload and discard the rest.
+				sReceived = Right(sReceived, iPayloadLen);
+                
+				TRACE("Payload = %s", sReceived);
+                
+				//For each channel signal defined
+				For( i = 1 To g_iNumChannels)
+				{
+					TRACE("Processing Channel %d", i);
+                    
+					//remove a pair of characters from the payload
+					//and put the int value on an output.
+					sByte = RemoveByLength(2, sReceived);
+					TRACE("Value byte = %s", sByte);
+                    
+					iTempChannel = HextoI(sByte);
+					Channel[i] = iTempChannel + (iTempChannel << 8); 
+					
+                	//Channel[i] = Muldiv( HexToI(sByte), 65535, 255);
+					TRACE("Value int = %d", HexToI(sByte));
+				}
+			}
+		}
+
+	}
+    
+	//No longer busy. Clear down buffers and reset.
+	ClearBuffer(TCP_In);
+	Pulse(50, Complete);
+	g_iBusy = 0;
+}
+
+
+/*******************************************************************************
+ * main()
+ * This code will get called when the system starts up
+ ******************************************************************************/
+
+FUNCTION main()
+{
+	//Determine how far the moudule has been expanded.
+	for (g_iNumChannels = DMX_MAX To 1 Step -1)
+		if (IsSignalDefined(Channel[g_iNumChannels]))
+			break;
+    
+	//Ensure semaphore correctly set
+	g_iBusy = 0;
+    
+	//Wait for initial solution before allowing changes.
+	WaitForInitializationComplete();
+}

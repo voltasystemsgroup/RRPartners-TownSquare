@@ -1,0 +1,120 @@
+/*******************************************************************************
+ * Ultamation UC-DMX Channel Fill SIMPL+ Module
+ * Copyright (c) Ultamation Limited
+ *
+ * Ultamation Limited
+ * E: info@ultamation.com
+ * W: www.ultamation.com
+ *
+ * Module Summary:
+ * 
+ * Author:	Matt Chapman
+ * Date:	Jan 2014 
+ * Info:	For interface details, please read the embedded help file
+ *			See #HELP_BEGIN <-> #HELP_END
+ *
+ ******************************************************************************/
+
+/*******************************************************************************
+ * COMPILER DIRECTIVES
+ ******************************************************************************/
+#SYMBOL_NAME "UC-DMX Channel Fill (Ultamation) v1.00"
+#HINT ""
+#DEFINE_CONSTANT		DMX_MAX		100
+#CATEGORY "4" // Device Interface
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#HELP_PDF_FILE "UC-DMX Crestron Integration Module Programming Guide.pdf" 
+//#ENABLE_TRACE
+    
+#HELP_BEGIN
+UC-DMX Channel Fill (Ultamation)
+
+Copyright:
+This module is the copyright of Ultamation Ltd and
+may not be used without the an appropriate licence
+issued by Ultamation Ltd.
+
+Summary:
+A basic fixture control module for use with custom fixtures.
+
+Inputs:
+Send (Digital) - Construct a command based on values currently on other inputs.
+Channel[i] (Analogue) - Set a value (full range, 0d-65535d) to be set on that channel.
+
+Outputs:
+Out$ (Serial) - The serial output that will contain the string to be sent to the device.
+
+Parameters:
+Start_Channel (Decimal) - The start channel defines the DMX channel that will be altered by
+the "Channel[1]" signal.
+#HELP_END
+
+
+/*******************************************************************************
+ * INPUTS & OUTPUTS
+ ******************************************************************************/
+DIGITAL_INPUT Send;
+ANALOG_INPUT _SKIP_, Start_Channel#, End_Channel#, _SKIP_, Channel[DMX_MAX,1];
+
+STRING_OUTPUT Out$;
+
+/*******************************************************************************
+ * GLOBAL VARIABLES
+ ******************************************************************************/
+
+INTEGER g_iNumChannels;
+STRING g_sOutput[1042];
+INTEGER g_iBusy;
+
+/*******************************************************************************
+ * EVENT HANDLERS
+ ******************************************************************************/
+
+PUSH Send
+{
+	Integer i;
+    
+	//If we are not already building a command...
+	if(g_iBusy = 0)
+	{ 
+		//Set semaphore
+		g_iBusy = 1;
+
+		//Construct initial string
+		MakeString(g_sOutput, "S:0000:1000:%04X:%04X%04X", (g_iNumChannels * 2) + 8, Start_Channel#, End_Channel#);
+		
+   	 	//Iterate through values in use
+		for (i = 1 To g_iNumChannels)
+		{
+			//Append channel values
+    		MakeString(g_sOutput, "%s%02X", g_sOutput, Channel[i]/256);
+		}        
+        
+		//Output the resulting string.
+		Out$ = g_sOutput;
+
+		//Reset the semaphore.
+		g_iBusy = 0;
+	}
+}
+
+
+/*******************************************************************************
+ * main()
+ * This code will get called when the system starts up
+ ******************************************************************************/
+
+FUNCTION main()
+{
+	//Determine how far the moudule has been expanded.
+	for (g_iNumChannels = DMX_MAX To 1 Step -1)
+		if (IsSignalDefined(Channel[g_iNumChannels]))
+			break;
+    
+	//Ensure semaphore correctly set
+	g_iBusy = 0;
+    
+	//Wait for initial solution before allowing changes.
+	WaitForInitializationComplete();
+}

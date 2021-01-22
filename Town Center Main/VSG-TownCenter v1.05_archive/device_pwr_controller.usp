@@ -1,0 +1,177 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name: YBet, Inc.
+System Name:
+System Number:
+Programmer: Daniel Grothman (daniel@ybetinc.com)
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+#SYMBOL_NAME "Device Power Controller"
+// #HINT ""
+//#DEFINE_CONSTANT PULSE_TIME 30
+//#DEFINE_CONSTANT DELAY_TIME 30
+#CATEGORY "13" // Timers
+// #PRINT_TO_TRACE
+#DIGITAL_EXPAND InputsWithOutputs
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+#ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PROGRAM
+
+#HELP_BEGIN
+   Turns Device on and sends input commands and delayed input commands based on power feedback
+#HELP_END
+
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT _SKIP_,_SKIP_,_SKIP_,pwr_off,_SKIP_,
+				input[20];
+// ANALOG_INPUT 
+// STRING_INPUT 
+// BUFFER_INPUT 
+
+DIGITAL_OUTPUT _SKIP_,_SKIP_,_SKIP_,send_pwr_on,send_pwr_off,
+				send_input[20];
+// ANALOG_OUTPUT 
+// STRING_OUTPUT 
+
+/*******************************************************************************************
+  SOCKETS
+  (Uncomment and define socket definitions as needed)
+*******************************************************************************************/
+// TCP_CLIENT
+// TCP_SERVER
+// UDP_SOCKET
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+INTEGER_PARAMETER Delayed_Input_Trigger,Pulse_Time,Step_Time;
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+// STRING_PARAMETER
+
+/*******************************************************************************************
+  Parameter Properties
+  (Uncomment and declare parameter properties as needed)
+*******************************************************************************************/
+/*
+#BEGIN_PARAMETER_PROPERTIES parameter_variable, parameter_variable, ...
+   // propValidUnits = // unitString or unitDecimal|unitHex|unitPercent|unitCharacter|unitTime|unitTicks;
+   // propDefaultUnit = // unitString, unitDecimal, unitHex, unitPercent, unitCharacter, unitTime or unitTicks;
+   // propBounds = lower_bound , upper_bound;
+   // propDefaultValue = ;  // or, propDefaultValue = "";
+   // propList = // { "value" , "label" } , { "value" , "label" } , ... ;
+   // propShortDescription = "status_bar_hint_text";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+*/
+
+#BEGIN_PARAMETER_PROPERTIES Delayed_Input_Trigger
+   propValidUnits = unitTime;
+   propDefaultUnit = unitTime;
+   propDefaultValue = 5.0s;
+   propShortDescription = "delayed input trigger time";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES Pulse_Time
+   propValidUnits = unitTime;
+   propDefaultUnit = unitTime;
+   propDefaultValue = 0.30s;
+   propShortDescription = "command pulse time";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES Step_Time
+   propValidUnits = unitTime;
+   propDefaultUnit = unitTime;
+   propDefaultValue = 0.30s;
+   propShortDescription = "time between commands";
+#END_PARAMETER_PROPERTIES
+/*******************************************************************************************
+  Global Variables
+  (Uncomment and declare global variables as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: myString = "";
+*******************************************************************************************/
+INTEGER STATE;
+// LONG_INTEGER
+// SIGNED_INTEGER
+// SIGNED_LONG_INTEGER
+// STRING
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+Function StateChange(INTEGER NewState) {
+	if(STATE = 0) {
+		PULSE(PULSE_TIME, send_pwr_on);
+		DELAY(STEP_TIME+PULSE_TIME);
+		PULSE(PULSE_TIME, send_input[NewState]);
+
+		WAIT(Delayed_Input_Trigger, PWR_LONG_DELAY) {
+			PULSE(PULSE_TIME, send_input[STATE]);
+		}
+	} else {
+		PULSE(PULSE_TIME, send_pwr_on);
+		DELAY(STEP_TIME+PULSE_TIME);
+		PULSE(PULSE_TIME, send_input[NewState]);
+	}
+}
+PUSH input
+{
+	INTEGER src;
+
+    src = getlastmodifiedarrayindex();
+
+	CANCELWAIT(PWR_LONG_DELAY);
+	StateChange(src);
+	STATE = src;
+}
+
+PUSH pwr_off
+{
+	CANCELWAIT(PWR_LONG_DELAY);
+	PULSE(PULSE_TIME, send_pwr_off);
+	STATE = 0;
+}
+
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+
+Function Main()
+{
+    STATE = 0;
+}
+
+

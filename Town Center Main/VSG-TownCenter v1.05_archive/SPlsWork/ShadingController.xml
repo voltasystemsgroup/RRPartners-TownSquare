@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ShadingController</name>
+    </assembly>
+    <members>
+        <member name="T:SS_ShadingController.ShadingActionList">
+            <summary>
+            Action List Class
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.Communicator_ShadesDataChangeComplete(System.Object,System.EventArgs)">
+            <summary>
+            Detect room data change from communicator
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.AreaIDLookup(System.UInt16)">
+            <summary>
+            Get list position of a room id, ignore if not found
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.GetShadeRooms">
+            <summary>
+            Update simpl+ outputs will visible rooms for current profile
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.changeRoomReq(System.UInt16)">
+            <summary>
+            Request to change checked state of a single room in list
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.changeRoom(System.UInt16)">
+            <summary>
+            Change checked state of a single room in list
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.changeAll(System.UInt16)">
+            <summary>
+            Change checked state of all rooms in list
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.updateCheckedRoomsArray">
+            <summary>
+            Update array that keeps track of checked rooms
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.getCheckedRooms">
+            <summary>
+            Get array of checked rooms in list
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.pressOpen">
+            <summary>
+            Send ooen request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.pressClose">
+            <summary>
+            Send close request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.pressStop">
+            <summary>
+            Send stop request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.pressPreset(System.UInt16)">
+            <summary>
+            Send preset request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.startRaise">
+            <summary>
+            Send start-raise request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.endRaise">
+            <summary>
+            Send end-raise request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.raiseSingle">
+            <summary>
+            Send 1% raise request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.startLower">
+            <summary>
+            Send start-lower request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.endLower">
+            <summary>
+            Send end-lower request to area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList.lowerSingle">
+            <summary>
+            Send 1% lower request to area
+            </summary>
+        </member>
+        <member name="E:SS_ShadingController.ShadingActionList.updateName">
+            <summary>
+            Send name data to simpl+
+            </summary>
+        </member>
+        <member name="E:SS_ShadingController.ShadingActionList.updateState">
+            <summary>
+            Send state data to simpl+
+            </summary>
+        </member>
+        <member name="E:SS_ShadingController.ShadingActionList.updateAllStates">
+            <summary>
+            Send state data to simpl+
+            </summary>
+        </member>
+        <member name="E:SS_ShadingController.ShadingActionList.updateIcon">
+            <summary>
+            Send states data to simpl+
+            </summary>
+        </member>
+        <member name="E:SS_ShadingController.ShadingActionList.updateLastSelected">
+            <summary>
+            Send state data to simpl+
+            </summary>
+        </member>
+        <member name="E:SS_ShadingController.ShadingActionList.updateListSize">
+            <summary>
+            Send state data to simpl+
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList_Levels.setMasterLevel(System.UInt16)">
+            <summary>
+            Sent master level
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingActionList_Levels.setAreaLevel(System.UInt16,System.UInt16)">
+            <summary>
+            Send area level
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingController.RefreshList">
+            <summary>
+            Refresh info for visible lights in current area
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingController.UpdateListNames">
+            <summary>
+            Update outputs on Simpl+ module with area names
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingController.HandleOnReceive(System.Object,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Receives the event triggered via Core
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingController_ListLevels.HandleOnReceive(System.Object,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Receives the event triggered via Core
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.levelTimeout(System.Object)">
+            <summary>
+            Level Change Timeout to reduce the amount of traffic to track light levels
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.EquipInit">
+            <summary>
+            Wait for verification of authorization then request setup info
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.SystemAuthorizedChange(System.Object,System.EventArgs)">
+            <summary>
+            Event trigger on authorization level change
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.RegisterArea">
+            <summary>
+            Register the device as a hub with the core
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.RegisterDevice">
+            <summary>
+            Register the device as a hub with the core
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.SendQueryResponse(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Send response to Query Request
+            </summary>
+            <param name="to">ID for whom the event is going to</param>
+            <param name="etag">Event tag</param>
+            <param name="etype">Event sub-tag (called type)</param>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.BroadCast(System.Int32,System.Int32)">
+            <summary>
+            Send a single event to multiple hubs
+            </summary>
+            <param name="_etag">Event tag</param>
+            <param name="_etype">Event sub-tag (called type)</param>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.SetupDevice(System.Int32,System.UInt16,System.String,System.UInt16)">
+            <summary>
+            Initial setup for the device
+            </summary>
+            <param name="_shadeId">ID of the device to register with the core</param>
+            <param name="_areaId">Area ID of the device to register with the core (Can be changed via XML)</param>
+            <param name="_name">Name of the device to register with the core (Can be changed via XML)</param>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.SetupArea(System.UInt16,System.String,System.UInt16)">
+            <summary>
+            Initial setup for the area controller
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.AtPreset(System.UInt16,System.UInt16)">
+            <summary>
+            Feedback of whether device is at preset level
+            </summary>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.HandleOnReceive(System.Object,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Receives the event from Cores
+            </summary>
+            <param name="_sender">sender of event</param>
+            <param name="_hea">contains event info</param>
+        </member>
+        <member name="M:SS_ShadingController.ShadingEquipment.ProcessReceive(System.Object,CoreHubEvents.HubEventArgs)">
+            <summary>
+            Process the event from Cores
+            </summary>
+            <param name="_sender">sender of event</param>
+            <param name="_hea">contains event info</param>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.DeviceID">
+            <summary>
+            ID of the device
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.AreaID">
+            <summary>
+            Area ID of the device
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.AreaName">
+            <summary>
+            Area Name of the device (Can be changed via XML)
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.DeviceName">
+            <summary>
+            Name of the device (Can be changed via XML)
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.DeviceLevel">
+            <summary>
+            Level of the device (0%-100%)
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.DeviceStatus">
+            <summary>
+            Status of the device (Open/Closed)
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.DeviceMoving">
+            <summary>
+            Whether device is moving
+            </summary>
+        </member>
+        <member name="P:SS_ShadingController.ShadingEquipment.DiscreteToggle">
+            <summary>
+            Whether device has a discrete toggle command
+            </summary>
+        </member>
+    </members>
+</doc>

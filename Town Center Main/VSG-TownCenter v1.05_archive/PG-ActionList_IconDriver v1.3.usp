@@ -1,0 +1,205 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer:
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+#DEFINE_CONSTANT 	MAXSIZE 14
+// #CATEGORY "" 
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+
+#HELP_BEGIN
+	Controls icons displayed in the top bar and presses associated with those icons
+
+	v1.2
+	Expand MAXSIZE to 12
+	Add Alignment Perameters
+	v1.3
+	Expand MAXSIZE to 14
+#HELP_END
+
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT al_press[MAXSIZE],_SKIP_,al_enable[MAXSIZE]; 
+ANALOG_INPUT al_blankicon,_SKIP_,al_size,_SKIP_,al_icon[MAXSIZE];
+// STRING_INPUT 
+// BUFFER_INPUT 
+
+DIGITAL_OUTPUT al_press_out[MAXSIZE],_SKIP_;
+DIGITAL_OUTPUT al_enable_out[MAXSIZE];
+
+ANALOG_OUTPUT al_size_out,al_icon_out[MAXSIZE];
+// STRING_OUTPUT 
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+INTEGER_PARAMETER Alignment,List_Size;
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+// STRING_PARAMETER
+
+#BEGIN_PARAMETER_PROPERTIES Alignment
+   propValidUnits = unitDecimal;
+   propDefaultUnit = unitDecimal;
+   // propBounds = lower_bound , upper_bound;
+   propDefaultValue = 0d;
+   propList = { 0d , "Align Right" } , { 1d , "Align Left" } ;
+   // propShortDescription = "status_bar_hint_text";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES List_Size
+   propValidUnits = unitDecimal;
+   propDefaultUnit = unitDecimal;
+   propBounds = 1d , 14d;
+   propDefaultValue = 14d;
+   //propList = { 0d , "Align Right" } , { 1d , "Align Left" } ;
+   // propShortDescription = "status_bar_hint_text";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+/*******************************************************************************************
+  Global Variables
+  (Uncomment and declare global variables as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: myString = "";
+*******************************************************************************************/
+INTEGER mapping[MAXSIZE];
+// LONG_INTEGER
+// SIGNED_INTEGER
+// SIGNED_LONG_INTEGER
+// STRING
+
+
+FUNCTION IconUpdate()
+{
+	INTEGER i,h,c;
+
+	if(Alignment = 0)
+	{	
+		c = List_Size;
+		for(i=List_Size to 1 step i-1)
+		{
+			if((al_icon[i] <> al_blankicon) && (al_enable[i] = 1))
+			{
+				al_icon_out[c] = al_icon[i];
+				mapping[c] = i;
+				c = c - 1;
+			}
+		}
+
+		for(i = 1 to c)
+		{
+			mapping[i] = 0;
+			al_icon_out[i] = al_blankicon;
+		}
+	} else {
+		c = 1;
+		for(i=1 to List_Size)
+		{
+			if((al_icon[i] <> al_blankicon) && (al_enable[i] = 1))
+			{
+				al_icon_out[c] = al_icon[i];
+				mapping[c] = i;
+				c = c + 1;
+			}
+		}
+
+		for(h = c to MAXSIZE)
+		{
+			mapping[h] = 0;
+			al_icon_out[h] = al_blankicon;
+		}
+	}
+}
+Function RequestUpdate()
+{
+	Wait(20,REQUPDATE)
+	{
+		IconUpdate();
+	}
+}	
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+CHANGE al_size
+{
+	al_size_out = al_size;
+}
+
+CHANGE al_enable
+{
+	CancelWait(REQUPDATE);
+	RequestUpdate();
+}
+
+PUSH al_press
+{
+	INTEGER i,c;
+
+	i = getlastmodifiedarrayindex();
+
+	if(al_icon_out[i] <> al_blankicon)
+	{
+		c = mapping[i];
+		pulse(50,al_press_out[c]);		
+	}
+}
+
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+
+Function Main()
+{
+	INTEGER i;
+
+	for(i = 1 to List_Size)
+	{
+    	al_enable_out[i] = 1;
+	}
+	al_size_out = al_size;
+}
+
+

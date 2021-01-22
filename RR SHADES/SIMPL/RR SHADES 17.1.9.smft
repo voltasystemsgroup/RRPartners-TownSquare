@@ -1,0 +1,20 @@
+<Device Model="CP3">
+   <Network Type="Cresnet" Id="01">
+      <Device Model="C2N-IO" DeviceId="11" Name="C2N-IO [SHADEGROUP_01]"/>
+      <Device Model="C2N-IO" DeviceId="12" Name="C2N-IO [SHADEGROUP_02]"/>
+      <Device Model="C2N-IO" DeviceId="13" Name="C2N-IO [SHADEGROUP_03]"/>
+      <Device Model="C2N-IO" DeviceId="14" Name="C2N-IO [SHADEGROUP_04]"/>
+      <Device Model="C2N-IO" DeviceId="15" Name="C2N-IO [SHADEGROUP_05]"/>
+      <Device Model="C2N-IO" DeviceId="16" Name="C2N-IO [SHADEGROUP_GARAGE_01]"/>
+      <Device Model="C2N-IO" DeviceId="17" Name="C2N-IO [SHADEGROUP_GARAGE_02]"/>
+      <Device Model="GL-EXP-DIM-CN" DeviceId="21" Name="GL-EXP-DIM-CN [LOAD_01]"/>
+      <Device Model="GL-EXP-DIM-CN" DeviceId="22" Name="GL-EXP-DIM-CN [LOAD_02]"/>
+      <Device Model="GL-EXP-DIM-CN" DeviceId="23" Name="GL-EXP-DIM-CN [LOAD_03]"/>
+      <Device Model="GL-EXP-SW-CN" DeviceId="24" Name="GL-EXP-SW-CN [LOAD_04]"/>
+      <Device Model="C2N-CBD-P" DeviceId="31" Name="C2N-CBD-P [KP_01]"/>
+      <Device Model="C2N-CBD-P" DeviceId="32" Name="C2N-CBD-P  [KP_02]"/>
+      <Device Model="C2N-CBD-P" DeviceId="33" Name="C2N-CBD-P  [KP_03]"/>
+      <Device Model="C2N-CBD-P" DeviceId="34" Name="C2N-CBD-P  [KP_04]"/>
+   </Network>
+   <Network Type="Ethernet" Id="02"/>
+</Device>

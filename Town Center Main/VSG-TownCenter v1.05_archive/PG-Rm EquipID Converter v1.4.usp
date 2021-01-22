@@ -1,0 +1,85 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer: Pulse Group
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+#DEFINE_CONSTANT MAXSIZE	50
+// #CATEGORY "" 
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+#OUTPUT_SHIFT 2
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+
+#HELP_BEGIN
+	Route Analog Inputs Values to output value based on last pulsed digital input
+
+	v1.1 expanded to 40 inputs
+	v1.2 moved icon tracking to seperate module
+	v1.3 added current source output to check for valid source and output current source only when valid
+	v1.4 expanded to 50 inputs
+#HELP_END
+
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+ANALOG_INPUT src_id,_SKIP_,device_id[MAXSIZE];
+
+DIGITAL_OUTPUT device_trigger[MAXSIZE]; 
+ANALOG_OUTPUT current_src_id;
+// STRING_OUTPUT 
+
+CHANGE src_id
+{
+INTEGER i,src_found,testing_src;
+	testing_src = src_id; 
+	//dont do anything if < 0      
+	if(testing_src < 1)
+		return;
+       
+	//check for source	 
+	src_found = 0;
+	for(i = 1 to MAXSIZE)
+	{
+		if(testing_src = device_id[i])
+		{
+			src_found = 1;
+			break;
+		}
+	}
+	if(src_found = 1)
+	{
+		pulse(50,device_trigger[i]);
+		current_src_id = testing_src;
+	}
+}

@@ -1,0 +1,91 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name: YBet, Inc.
+System Name: Analog to Text V2.1
+System Number:
+Programmer: Daniel Grothman (daniel@ybetinc.com)
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #SYMBOL_NAME ""
+// #HINT ""
+// #DEFINE_CONSTANT
+// #CATEGORY "" 
+// #DEFAULT_VOLATILE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT
+#DEFAULT_NONVOLATILE
+#ENABLE_STACK_CHECKING
+
+#HELP_BEGIN
+*******************************************************************************************
+   Converts Analog Input To Serial Text
+*******************************************************************************************
+sPrefix: Text that will be pre-pended on to sOut
+sSuffix: Text that will be ap-pended on to sOut
+aInput[n]: Analog value that will be converted text on sOut[n]
+sOut[n]: Combination of sPrefix+aInput+sSuffix
+#HELP_END
+
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT warming_active,cooling_active;
+// STRING_INPUT
+ANALOG_INPUT warming_timer,cooling_timer;
+// BUFFER_INPUT 
+
+// DIGITAL_OUTPUT 
+// ANALOG_OUTPUT 
+STRING_OUTPUT status_text;
+
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+
+CHANGE warming_timer
+{
+	if(warming_active = 1) {
+		makestring(status_text,"WARMING UP... %s",itoa(warming_timer));
+	}		
+}
+CHANGE cooling_timer
+{
+	if (cooling_active = 1) {
+		makestring(status_text,"COOLING DOWN... %s",itoa(cooling_timer));
+	}		
+}
+RELEASE warming_active,cooling_active
+{
+	makestring(status_text," ");
+}
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+
+Function Main()
+{
+	makestring(status_text," ");  
+}
+
+

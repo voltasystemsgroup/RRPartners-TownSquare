@@ -1,0 +1,90 @@
+[BEGIN]
+  Version=1
+[END]
+[BEGIN]
+  ObjTp=FSgntr
+  Sgntr=UserSPlus
+  RelVrs=1
+  IntStrVrs=1
+  SPlusVrs=4.04.01
+  CrossCplrVrs=1.3
+[END]
+[BEGIN]
+  ObjTp=Hd
+  Cmn1=*********************************************************************************
+  Cmn2=**********\\   Converts Analog Input To Serial Text\\****************************
+  Cmn3=***************************************************************\\
+  Cmn4=sPrefix: Text that will be pre-pended on to sOut\\sSuffix: Text||1
+  Cmn5=that will be ap-pended on to sOut\\aInput[n]: Analog value that||1
+  Cmn6=will be converted text on sOut[n]\\sOut[n]: Combination of sPrefix+aInput+sSuffix
+[END]
+[BEGIN]
+  ObjTp=Symbol
+  Exclusions=1,19,20,21,88,89,167,168,179,213,214,215,216,217,225,226,248,249,266,267,310,718,756,854,
+  Exclusions_CDS=5
+  Inclusions_CDS=6
+  Name=PG-Proj Status Text v1.0
+  SmplCName=PG-Proj Status Text v1.0.usp
+  Code=1
+  SysRev5=4.006
+  SMWRev=3.00.00
+  InputCue1=warming_active
+  InputSigType1=Digital
+  InputCue2=cooling_active
+  InputSigType2=Digital
+  InputList2Cue1=warming_timer
+  InputList2SigType1=Analog
+  InputList2Cue2=cooling_timer
+  InputList2SigType2=Analog
+  OutputList2Cue1=status_text
+  OutputList2SigType1=Serial
+  ParamCue1=[Reference Name]
+  MinVariableInputs=2
+  MaxVariableInputs=2
+  MinVariableInputsList2=2
+  MaxVariableInputsList2=2
+  MinVariableOutputs=0
+  MaxVariableOutputs=0
+  MinVariableOutputsList2=1
+  MaxVariableOutputsList2=1
+  MinVariableParams=0
+  MaxVariableParams=0
+  Expand=expand_separately
+  Expand2=expand_separately
+  ProgramTree=Logic
+  SymbolTree=32
+  Hint=
+  PdfHelp=
+  HelpID= 
+  Render=4
+  Smpl-C=16
+  CompilerCode=-48
+  CompilerParamCode=27
+  CompilerParamCode5=14
+  NumFixedParams=1
+  Pp1=1
+  MPp=1
+  NVStorage=10
+  ParamSigType1=String
+  SmplCInputCue1=o#
+  SmplCOutputCue1=i#
+  SmplCInputList2Cue1=an#
+  SmplCOutputList2Cue1=ai#
+  SPlus2CompiledName=S2_PG_Proj_Status_Text_v1_0
+  SymJam=NonExclusive
+  FileName=PG-Proj Status Text v1.0.ush
+  SIMPLPlusModuleEncoding=0
+  clz1=SS_XMLCommunicator 2.0
+  clz2=SS_CoreHubEvents 2.0
+  clz3=SonosLibrary
+  clz4=SS_RoviTVListings v2.0
+  clz5=SS_DirecTVController
+  clz6=SS_Passwords
+  clz7=SS_ShadingController 2.0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=1
+  Tp=1
+  NoS=False
+[END]

@@ -1,0 +1,64 @@
+Crosspoint listing for C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCenter v1.05_archive\VSG-TownCenter v1.07.SMW
+
+Note:  Crosspoint symbols with EquipID or ControlID set to 0d are not routeable.
+
+Equipment Crosspoint Routing.                                                                       EquipID
+===========================================================================================================
+S-2.12                                                                                              1
+S-2.13                                                                                              2
+S-3.13.3                                                                                            499
+S-2 in macro S-3.15.1.3 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-Town          592
+Center v1.05_archive\PG-LightScenes Controller-Multi (Equip) 2.5.umc)                               
+S-4 in macro S-4.4.9 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCen          601
+ter v1.05_archive\PG-RoomConnector v1.8.umc)                                                        
+S-4 in macro S-4.5.5 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCen          602
+ter v1.05_archive\PG-RoomConnector v1.8.umc)                                                        
+S-4 in macro S-4.6.8 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCen          603
+ter v1.05_archive\PG-RoomConnector v1.8.umc)                                                        
+S-4 in macro S-4.7.6 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCen          604
+ter v1.05_archive\PG-RoomConnector v1.8.umc)                                                        
+S-4 in macro S-4.8.5 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCen          614
+ter v1.05_archive\PG-RoomConnector v1.8.umc)                                                        
+S-3.3.3                                                                                             800
+S-3.4.4.3                                                                                           801
+S-3.4.5.3                                                                                           802
+S-3.5.4                                                                                             804
+S-3.6.4                                                                                             805
+S-3.7.3                                                                                             806
+S-3.8.3                                                                                             807
+S-3.9.3                                                                                             808
+S-3.10.3                                                                                            809
+S-3.11.3                                                                                            813
+S-3.19.4                                                                                            899
+S-18 in macro S-3.14.4.1 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-Tow          901
+nCenter v1.05_archive\PG-Crestron CHV-TSTATEX w5-2 Scheduler v1.2.umc)                              
+S-3.3.4                                                                                             8001
+
+Control Crosspoint Routing.                                                                         ControlID
+=============================================================================================================
+S-5.2.4                                                                                             11
+S-5.3.4                                                                                             21
+S-2.4 in macro S-5.2.18.9.1 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-          150
+TownCenter v1.05_archive\PG-LightLoad Controller-Scenes (Control) 4.3.umc)                          
+S-5.2.5                                                                                             160
+S-5.2.6                                                                                             180
+S-5.2.8                                                                                             189
+S-5.2.7                                                                                             190
+S-2.4 in macro S-5.3.18.9.1 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-          250
+TownCenter v1.05_archive\PG-LightLoad Controller-Scenes (Control) 4.3.umc)                          
+S-5.3.5                                                                                             260
+S-5.3.6                                                                                             280
+S-5.3.8                                                                                             289
+S-5.3.7                                                                                             290
+S-5.1.4                                                                                             1011
+S-2.4 in macro S-5.1.18.9.1 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-          10150
+TownCenter v1.05_archive\PG-LightLoad Controller-Scenes (Control) 4.3.umc)                          
+S-5.1.5                                                                                             10160
+S-5.1.6                                                                                             10180
+S-5.1.8                                                                                             10189
+S-5.1.7                                                                                             10190
+S-2.4 in macro S-5.4.4.1 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-Tow          30150
+nCenter v1.05_archive\PG-LightLoad Controller-Scenes (Control) 4.3.umc)                             
+S-3 in macro S-5.4.2 (Module File C:\Users\Mike\Desktop\R & R\Town Center Main\VSG-TownCen          30180
+ter v1.05_archive\PG-MLX-Device Controler v2.6.umc)                                                 
+

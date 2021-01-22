@@ -1,0 +1,151 @@
+[BEGIN]
+  Version=1
+[END]
+[BEGIN]
+  ObjTp=FSgntr
+  Sgntr=UserSPlus
+  RelVrs=1
+  IntStrVrs=1
+  SPlusVrs=4.04.01
+  CrossCplrVrs=1.3
+[END]
+[BEGIN]
+  ObjTp=Hd
+  Cmn1=||3Turns Device on and sends input commands and delayed input commands||1
+  Cmn2=based on power feedback
+[END]
+[BEGIN]
+  ObjTp=Symbol
+  Exclusions=1,19,20,21,88,89,167,168,179,213,214,215,216,217,225,226,248,249,266,267,310,718,756,854,
+  Exclusions_CDS=5
+  Inclusions_CDS=6
+  Name=Device Power Controller
+  SmplCName=device_pwr_controller.usp
+  Code=1
+  SysRev5=4.006
+  SMWRev=3.00.00
+  InputCue1=[~UNUSED~]
+  InputSigType1=Digital
+  InputCue2=[~UNUSED~]
+  InputSigType2=Digital
+  InputCue3=[~UNUSED~]
+  InputSigType3=Digital
+  InputCue4=pwr_off
+  InputSigType4=Digital
+  InputCue5=[~UNUSED~]
+  InputSigType5=Digital
+  InputCue6=input[#]
+  InputSigType6=Digital
+  OutputCue1=[~UNUSED~]
+  OutputSigType1=Digital
+  OutputCue2=[~UNUSED~]
+  OutputSigType2=Digital
+  OutputCue3=[~UNUSED~]
+  OutputSigType3=Digital
+  OutputCue4=send_pwr_on
+  OutputSigType4=Digital
+  OutputCue5=send_pwr_off
+  OutputSigType5=Digital
+  OutputCue6=send_input[#]
+  OutputSigType6=Digital
+  ParamCue1=[Reference Name]
+  ParamCue2=Delayed_Input_Trigger
+  ParamSigType2=Time
+  ParamCue3=Pulse_Time
+  ParamSigType3=Time
+  ParamCue4=Step_Time
+  ParamSigType4=Time
+  MinVariableInputs=6
+  MaxVariableInputs=25
+  MinVariableInputsList2=0
+  MaxVariableInputsList2=0
+  MinVariableOutputs=6
+  MaxVariableOutputs=25
+  MinVariableOutputsList2=0
+  MaxVariableOutputsList2=0
+  MinVariableParams=3
+  MaxVariableParams=3
+  Expand=expand_inputs_with_outputs
+  Expand2=expand_separately
+  ProgramTree=Logic
+  SymbolTree=13
+  Hint=
+  PdfHelp=
+  HelpID= 
+  Render=4
+  Smpl-C=16
+  CompilerCode=-48
+  CompilerParamCode=27
+  CompilerParamCode5=14
+  NumFixedParams=1
+  Pp1=1
+  Pp2=2
+  Pp3=3
+  Pp4=4
+  MPp=4
+  NVStorage=10
+  ParamSigType1=String
+  SmplCInputCue1=o#
+  SmplCOutputCue1=i#
+  SmplCInputList2Cue1=an#
+  SmplCOutputList2Cue1=ai#
+  SPlus2CompiledName=S2_device_pwr_controller
+  SymJam=NonExclusive
+  FileName=device_pwr_controller.ush
+  SIMPLPlusModuleEncoding=3
+  clz1=SS_XMLCommunicator 2.0
+  clz2=SS_CoreHubEvents 2.0
+  clz3=SonosLibrary
+  clz4=SS_RoviTVListings v2.0
+  clz5=SS_DirecTVController
+  clz6=SS_Passwords
+  clz7=SS_ShadingController 2.0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=1
+  Tp=1
+  NoS=False
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=2
+  Tp=1
+  SD=delayed input trigger time
+  HD=True
+  DV=5.0s
+  Sgn=0
+  Lng=False
+  NF=16
+  NoS=True
+  DNF=16
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=3
+  Tp=1
+  SD=command pulse time
+  HD=True
+  DV=0.30s
+  Sgn=0
+  Lng=False
+  NF=16
+  NoS=True
+  DNF=16
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=4
+  Tp=1
+  SD=time between commands
+  HD=True
+  DV=0.30s
+  Sgn=0
+  Lng=False
+  NF=16
+  NoS=True
+  DNF=16
+  VVS=0
+[END]

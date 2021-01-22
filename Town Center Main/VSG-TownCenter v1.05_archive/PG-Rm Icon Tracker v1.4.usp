@@ -1,0 +1,70 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer: Pulse Group
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+#DEFINE_CONSTANT 	MAXSIZE		50
+// #CATEGORY "" 
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+
+#HELP_BEGIN
+	Route Analog Inputs Values to output value based on last pulsed digital input
+
+	v1.1 expanded to 40 inputs
+	v1.2 added names
+	v1.3 expanded to 50 inputs
+	v1.4 removed mlx_icon
+#HELP_END
+
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT device_trigger[MAXSIZE,MAXSIZE];
+ANALOG_INPUT device_icon[MAXSIZE];
+STRING_INPUT device_name[MAXSIZE][255]; 
+ANALOG_OUTPUT src_icon;
+STRING_OUTPUT src_name;
+// STRING_OUTPUT 
+
+PUSH device_trigger
+{
+INTEGER i;
+	i = getlastmodifiedarrayindex();                   
+	
+	src_icon = device_icon[i];
+	src_name = device_name[i];
+}

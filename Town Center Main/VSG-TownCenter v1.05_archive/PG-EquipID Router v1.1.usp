@@ -1,0 +1,100 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer: Pulse Group
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+// #DEFINE_CONSTANT
+// #CATEGORY "" 
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+
+#HELP_BEGIN
+	Route Analog Inputs Values to output value based on last pulsed digital input
+
+	v1.1 expanded to 40 inputs
+#HELP_END
+
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT source_off;
+DIGITAL_INPUT source_req[40];
+DIGITAL_INPUT override[5];
+ANALOG_INPUT device_id[40];
+ANALOG_INPUT override_id[5];
+// STRING_INPUT 
+// BUFFER_INPUT 
+
+// DIGITAL_OUTPUT 
+ANALOG_OUTPUT equip_id;
+// STRING_OUTPUT 
+INTEGER_FUNCTION CHECK_OVERRIDE()
+{
+	INTEGER i;
+
+	for(i=1 to 5) {
+		if(override[i] = 1)
+			return(1);
+	}
+	return(0);
+}
+
+PUSH override
+{
+	INTEGER i;
+	i = getlastmodifiedarrayindex();
+	equip_id = override_id[i];
+}
+
+PUSH source_req
+{
+	INTEGER i;
+
+	if(check_override() = 1)
+		return;
+
+	i = getlastmodifiedarrayindex();
+	equip_id = 0;
+	equip_id = device_id[i];
+}
+
+PUSH source_off
+{
+	if(check_override() = 1)
+		return;
+
+	equip_id = 800;
+}
